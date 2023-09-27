@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feedback Form</title>
+</head>
+<body>
+    <h1>Feedback Form</h1>
+    <form action="submit_feedback.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label>Feedback Options:</label><br>
+        <input type="checkbox" id="excellent" name="feedback[]" value="excellent"> <label for="excellent">Excellent</label><br>
+        <input type="checkbox" id="good" name="feedback[]" value="good"> <label for="good">Good</label><br>
+        <input type="checkbox" id="average" name="feedback[]" value="average"> <label for="average">Average</label><br>
+        <input type="checkbox" id="poor" name="feedback[]" value="poor"> <label for="poor">Poor</label><br><br>
+
+        <label for="file">Upload a File:</label>
+        <input type="file" id="file" name="file" accept=".pdf, .doc, .docx" required><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function validateForm() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const feedbackCheckboxes = document.getElementsByName("feedback[]");
+            const file = document.getElementById("file").value;
+
+            // Check if at least one checkbox is selected
+            let atLeastOneCheckboxChecked = false;
+            for (const checkbox of feedbackCheckboxes) {
+                if (checkbox.checked) {
+                    atLeastOneCheckboxChecked = true;
+                    break;
+                }
+            }
+
+            if (!atLeastOneCheckboxChecked) {
+                alert("Please select at least one feedback option.");
+                return false;
+            }
+
+            // Check if all required fields are filled out
+            if (name === "" || email === "" || file === "") {
+                alert("All fields are required.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>
